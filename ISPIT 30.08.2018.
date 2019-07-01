@@ -1,0 +1,43 @@
+ORM 2 priprema za drugi kolokvijum
+
+ISPIT 30.08.2018.
+
+11. U Zigbee mrezi postoji hijerarhija uredjaja. Koje uloge mogu imati uredjaji u mrezi i kako to utice na skup funkcionalnosti koje moraju implementirati?
+
+Uređaji sa potpunim skupom funkcionalnosti mogu imati ulogu koordinatora PAN mreže ili rutera, dok uređaji sa ograničenim skupom funkcionalnosti mogu biti samo na krajevima mreže, i primati poruke koje su im namenjene, odnosno generisati sopstveni saobraćaj.
+
+12. Objasniti proceduru asocijacije terminala u Zigbee mrezi.
+
+Proceduru asocijacije inicira uređaj koji želi da se priključi mreži. On šalje okvir zahteva za asocijaciju PAN koordinatoru, na adresu koju je saznao iz svetionik okvira. U okviru ovog zahteva, uređaj obaveštava koordinatora o tome da li se napaja iz mreže ili baterijom, da li je RDF ili FFD, da li želi kratku adresu i sl. Nakon nekog vremena, uređaj traži od PAN koordinatora odgovor, i dobija ga u okviru odgovora na zahtev za asocijaciju. U odgovoru se nalazi status procedure asocijacije (da li je uređaju odobren pristup mreži), kao i dodeljena kratka adresa uređaja u PAN mreži.
+
+13. Objasniti algoritam za rutiranje u stablu (cluster tree routing) u Zigbee mrezi.
+
+Rutiranje u stablu vrši se na osnovu dodeljenih adresa, s obzirom na to da određeni blokovi adresa pripadaju određenim ruterima u mreži. Čvor koji primi neki okvir proverava odredište za taj okvir. Ukoliko zaključi da je on sam odredište, sadržaj okvira se prosleđuje ka aplikativnom sloju. U suprotnom, čvor proverava da li je odredište neko njegovo dete, tj. da li je odredišna adresa iz njemu dodeljenog bloka adresa. Ako je to slučaj, okvir se usmerava ka odgovarajućem detetu, koje ga prema potrebi može dalje proslediti. Ako pak odredište nije među decom čvora koji je primio okvir, on okvir usmerava ka svom roditelju.
+
+14. Koja je uloga kontrolera u Z-Wave mrezi?
+
+Kontroler može da upravlja drugim uređajima. On ima ili fabrički postavljen HomeID, ili se njegov HomeID generiše pri resetu uređaja. Takođe, NodeID mu je fabrički postavljen (obično je 0x01). Kontroler sadrži informacije o topologiji mreže, na osnovu kojih može da odredi putanju do svih čvorova u mreži.
+
+15. Objasniti kako se vrsi usmeravanje paketa (rutiranje) na mreznom sloju u Z-Wave tehnologiji.
+
+Z-Wave ne zahteva postojanje direktne vidljivosti između čvorova koji komuniciraju, već je moguće prosleđivanje podataka putem čvorova repetitora. Maksimalan broj repetitora na putanji je 4. Koristi se rutiranje po putanji koju specificira izvor (source routing). Kontroler određuje kompletnu putanju pre slanja podatka. Bira se najkraća putanja između dva uređaja (ona sa najmanje skokova). Putanja se smešta u zaglavlje paketa, a repetitori samo prosleđuju paket na osnovu informacija o putanji koje on sadrži, bez preračunavanja putanje.
+
+16. Objasniti na koji nacin se u osnovnom Bluetooth kanalu postize dvosmerna komunikacija.
+
+Dvosmerna komunikacija između vodećeg i pratećih uređaja ostvaruje se putem vremenskog dupleksiranja Slika 186. Kanal je podeljen na vremenske slotove dužine 625 μs, pri čemu vodeći uređaj može otpočeti slanje paketa u parnim, a prateći uređaji samo u neparnim slotovima. Paketi koji se šalju mogu trajati do 5 vremenskih slotova, i tokom slanja jednog paketa frekvencija u kanalu se ne menja.
+
+17. Kako se ponasa Bluetooth uredjaj u rezimu osluskivanja?
+
+Uređaj koji radi u režimu osluškivanja nije aktivan u svim slotovima, već se samo periodično budi (sa intervalom osluškivanja Tsniff) i osluškuje poruke od vodećeg uređaja. Vodeći uređaj zna period u kome se prateći uređaj aktivira i proziva ga samo tada ako je potrebno.
+
+18. Koji tipovi adresa uredjaja postoje u BLE (Bluetooth Low Energy)?
+
+Pored uobičajenih MAC adresa, BLE dozvoljava i formiranje takozvanih slučajnih adresa uređaja.
+
+19. Objasniti mehanizam koji se kod MQTT protokola koristi za slanje poruka izmedju izvora i odredista.
+
+MQTT koristi mehanizam pretplate i objave (publish-subscribe). Kako bi se izvršilo usmeravanje poruke ka korisnicima kojima je namenjena definišu se teme (topic). Uređaj koji šalje objavljuje poruku na određenu temu. Uređaj koji želi da prima poruke pretplaćuje se na određenu temu. Broker raspoređuje poruke između uređaja, u skladu sa temama na koje su pretplaćeni i na koje objavljuju.
+
+20. Kako se vrsi direktno usmeravanje (direct routing) poruka kod AMQP protokola?
+
+Direktno usmeravanje vrši se na osnovu ključa za usmeravanje u poruci. Pri formiranju redova, definiše se željeni ključ kao veza između reda i centrale.
