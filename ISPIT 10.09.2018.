@@ -1,0 +1,44 @@
+ORM 2 priprema za drugi kolokvijum
+
+ISPIT 10.09.2018.
+
+11. U Zigbee mrezi postoji hijerarhija uredjaja. Koje uloge mogu imati uredjaji u mrezi i kako to utice na skup funkcionalnosti koje moraju implementirati?
+
+Uređaji sa potpunim skupom funkcionalnosti mogu imati ulogu koordinatora PAN mreže ili rutera, dok uređaji sa ograničenim skupom funkcionalnosti mogu biti samo na krajevima mreže, i primati poruke koje su im namenjene, odnosno generisati sopstveni saobraćaj.
+
+12. Objasniti proceduru otkrivanja (skeniranja) Zigbee mreze.
+
+Procedura skeniranja (otkrivanja) PAN mreže može biti aktivna ili pasivna. Kod aktivnog skeniranja, uređaj šalje zahtev za svetionik okvir, na koji koordintor odgovara slanjem svetionika. U slučaju pasivnog skeniranja, uređaj prolazi kroz sve kanale i osluškuje svetionik okvire koje šalju koordinatori.
+
+13. Objasniti algoritam za dodelu lokalnih adresa u Zigbee mrezi.
+
+-
+
+14. Cemu sluzi snop okvir u Z-Wave mrezi?
+
+Kako bi se FL uređaju signaliziralo da treba da ostane budan kako bi primio podatke, koristi snop okvir (Beam Frame).
+
+15. Objasniti kako se vrsi usmeravanje paketa (rutiranje) na mreznom sloju u Z-Wave tehnologiji.
+
+Z-Wave ne zahteva postojanje direktne vidljivosti između čvorova koji komuniciraju, već je moguće prosleđivanje podataka putem čvorova repetitora. Maksimalan broj repetitora na putanji je 4. Koristi se rutiranje po putanji koju specificira izvor (source routing). Kontroler određuje kompletnu putanju pre slanja podatka. Bira se najkraća putanja između dva uređaja (ona sa najmanje skokova). Putanja se smešta u zaglavlje paketa, a repetitori samo prosleđuju paket na osnovu informacija o putanji koje on sadrži, bez preračunavanja putanje.
+
+16. Objasniti na koji nacin se u osnovnom Bluetooth kanalu postize dvosmerna komunikacija.
+
+Dvosmerna komunikacija između vodećeg i pratećih uređaja ostvaruje se putem vremenskog dupleksiranja Slika 186. Kanal je podeljen na vremenske slotove dužine 625 μs, pri čemu vodeći uređaj može otpočeti slanje paketa u parnim, a prateći uređaji samo u neparnim slotovima. Paketi koji se šalju mogu trajati do 5 vremenskih slotova, i tokom slanja jednog paketa frekvencija u kanalu se ne menja.
+
+17. Koja tehnika sirenja spektra se koristi u Bluetooth mrezi?
+
+Koristi se FHSS tehnika širenja spektra, tj. skače se iz kanala u kanal po nekoj
+pseudoslučajnoj sekvenci.
+
+18. Kako su organizovani komunikacioni kanali u BLE mrezi (Bluetooth Low Energy)?
+
+Za razliku od BR/EDR verzije Bluetooth tehnologije, BLE koristi 40 frekvencijskih kanala širine po 2 MHz. Tri kanala služe za oglašavanje (Advertising Channels). Ostali kanali služe za prenos podataka. S obzirom na to da BLE radi u istom opsegu kao i WiFi, postoji veliko preklapanje kanala. Kanali za oglašavanje služe za otkrivanje mreže, uspostavu veze i broadcast prenos. Kroz kanale za podatke vrši se skakanje prema FHSS sekvenci, i na taj način se formiraju linkovi.
+
+19. Na koji nacin se u MQTT protokolu ostvaruje veza sa brokerom? Koje poruke i koji parametri se tom prilikom razmenjuju izmedju klijenta i brokera?
+
+MQTT klijent se povezuje sa brokerom slanjem CONNECT poruke, na koju broker odgovara CONNACK porukom. CONNECT poruka sadrži identifikaciju klijenta, informaciju o tome da li je potrebno započeti novu sesiju, kao i vreme života konekcije (keepAlive). Vreme života predstavlja vremenski interval tokom kog se očekuje da klijent i broker razmene neku poruku, obnavlja se pri svakoj uspešnoj komunikaciji, a ako istekne predstavlja signal problema u sistemu. Opciono, može sadržati informacije za autorizaciju klijenta (korisničko ime i šifru), kao i informacije o oproštajnoj poruci koju broker treba da pošalje zainteresovanim korisnicima, u slučaju da dođe do neplaniranog prekida konekcije sa klijentom. Odgovor na zahtev za konekcijom je CONNACK poruka, koja sadrži informaciju o tome da li je već postojala sesija za datog klijenta na brokeru, i kod koji signalizira uspeh ili neuspeh operacije konektovanja.
+
+20. U cemu je razlika izmedju nacina isporuke poruka izmedju MQTT i AMQP protokola? Uporediti na primeru dva MQTT klijenta pretplacena na istu temu, odnosno dva AMQP potrosaca pretplacena na isti red poruka. Pretpostaviti da treba isporuciti jednu poruku na datu MQTT temu, odnosno da jedna poruka pristize u dati AMQP red.
+
+-
