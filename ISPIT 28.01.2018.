@@ -1,0 +1,29 @@
+ORM 2 priprema za drugi kolokvijum
+
+ISPIT 28.01.2018.
+
+11. Aktivni period superokvira u Zigbee mrezi sastoji se iz dva dela, tokom kojih se koriste razlicite metode kontrole pristupa medijumu. Koje su to metode?
+
+Aktivni period superokvira podeljen je na dva dela: period takmičenja CAP (Contention Acess Period) i period bez takmičenja CFP (Contention Free Period). U okviru CAP perioda, na nivou svakog slota koristi se CSMA/CA koji je je sinhronizovan sa početkom slota. Naime, u slučaju da neki uređaj zaključi da ne može da šalje podatke u trenutku u kom želi, on se povlači i čeka slučajan broj slotova (a ne slučajan vremenski interval, kao u slučaju klasičnog CSMA/CA mehanizma). U okviru CFP perioda koristi se vremensko multipleksiranje, i dozvoljava se komunikacija samo onim uređajima kojima su dodeljeni garantovani slotovi. Na raspolaganju je do 7 garantovanih slotova (GTS), a PAN koordinator u svetionik okviru definiše koliko ih se tačno koristi.
+
+12. Objasniti kako se vrsi prenos podataka od PAN koordinatora do krajnjeg uredjaja u Zigbee mrezi, u slucaju kada se koristi superokvir?
+
+Procedura prenosa podataka zavisi od toga da li se u mreži koristi superokvir (i svetionik) ili ne. Ukoliko se radi o mreži bez superokvira, uređaj koji ima podatke za slanje smešta ih u okvir sa podacima i šalje koristeći CSMA/CA. Uređaj koji prima podatke odgovara ACK porukom ukoliko je ona zahtevana. U mreži u kojoj se koristi superokvir, razlikujemo slučaj slanja od i ka PAN kooridinatoru. Kada uređaj želi da šalje podatke ka PAN koordinatoru, on prvo osluškuje dok ne primi svetionik okvir. Zatim vrši sinhronizaciju sa strukturom superokvira, i u odgovarajućem momentu šalju se podaci (ukoliko uređaj pobedi u CSMA/CA takmičenju sa ostalim uređajima). Kada je u pitanju prijem podataka od PAN koordinatora. Uređaj osluškuje da primi svetionik od PAN koordinatora. Ukoliko se prepozna u listi uređaja za koje postoje poruke, uređaj šalje zahtev za podatke PAN koordinatoru. Tek po prijemu zahteva za podatke, PAN koordinator šalje okvir sa podacima. 
+
+13. Isto kao 13. -> 10.9.2018.
+14. Isto kao 14. -> 10.9.2018.
+
+15. Objasni cemu sluze SUC(Static Update Controller) i SIS(Static ID Server) kontroleri u Z-Wave mrezi.
+
+SUC kontroler čuva informacije o svim putanjama u mreži, i odgovara na upite uređaja koji traže putanju do određenog čvora. Ovaj uređaj je statički kontroler i stalno je aktivan. Tabelu rutiranja inicijalno prima od prenosivog primarnog kontrolera i distribuira je ostalim sekundarnim kontrolerima.
+SIS server omogućava centralizovanu dodelu identifikatora uređaja (Node ID) uređajima koji se uključuju u mrežu. On održava listu slobodnih vrednosti za identifikatore uređaja u mreži. Zahvaljujući prisustvu SIS servera, i sekundarni kontroleri mogu dodavati uređaje.
+
+16. Isto kao 16. -> 10.9.2018.
+17. Isto kao 17. -> 10.9.2018.
+18. Isto kao 18. -> 10.9.2018.
+
+19. Koji je mehanizam za razmenu poruka koji se koristi u MQTT protokolu?
+
+MQTT koristi mehanizam pretplate i objave (publish-subscribe). Kako bi se izvršilo usmeravanje poruke ka korisnicima kojima je namenjena definišu se teme (topic). Uređaj koji šalje objavljuje poruku na određenu temu. Uređaj koji želi da prima poruke pretplaćuje se na određenu temu. Broker raspoređuje poruke između uređaja, u skladu sa temama na koje su pretplaćeni i na koje objavljuju.
+
+20. Isto kao 20. -> 10.9.2018.
